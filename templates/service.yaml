@@ -1,12 +1,15 @@
-apiVersion: v2
+apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-nginx
+  name: {{ include "alexc-http.fullname" . }}
+  labels:
+    {{- include "alexc-http.labels" . | nindent 4 }}
 spec:
-  selector:
-    app: {{ .Release.Name }}-nginx
-  ports:
-    - protocol: TCP
-      port: {{ .Values.service.port }}
-      targetPort: 80
   type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "alexc-http.selectorLabels" . | nindent 4 }}
