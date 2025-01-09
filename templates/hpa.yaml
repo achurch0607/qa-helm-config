@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "ac-http.fullname" . }}
+  name: {{ include "alexc-http.fullname" . }}
   labels:
-    {{- include "ac-http.labels" . | nindent 4 }}
+    {{- include "alexc-http.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "ac-http.fullname" . }}
+    name: {{ include "alexc-http.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
